@@ -1,0 +1,13 @@
+# Build artifacts
+*.img
+*.iso
+*.squashfs
+*.cpio.gz
+*.tar.gz
+
+# Kernel builds
+linux-*/
+iso_build/boot/vmlinuz
+
+# Target rootfs staging (do not track raw permissions via git)
+target-root/
