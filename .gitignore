@@ -1,13 +1,19 @@
-# Build artifacts
+# Disk Images and ISOs
+*.qcow2
 *.img
 *.iso
-*.squashfs
-*.cpio.gz
-*.tar.gz
 
-# Kernel builds
-linux-*/
-iso_build/boot/vmlinuz
+# Build directories and generated artifacts
+iso_build/
+my-distro/
+live-initramfs-root/
 
-# Target rootfs staging (do not track raw permissions via git)
-target-root/
+# Compiled Toolchains (these are massive)
+toolchain/
+
+# Downloaded bootloader binaries
+limine/
+
+# Ignore log files or temporary system files
+*.log
+.DS_Store

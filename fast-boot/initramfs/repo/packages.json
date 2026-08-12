@@ -1,0 +1,13 @@
+{
+  "packages": {
+    "hyfetch": {
+      "versions": {
+        "1.0.0": {
+          "dependencies": {},
+          "url": "http://127.0.0.1:8000/hyfetch.tar.zst",
+          "sha256": "a92ce27d6e07cb31a0680010bb3909bc815be550af91cc1bdd4f6fff6f673a8c"
+        }
+      }
+    }
+  }
+}

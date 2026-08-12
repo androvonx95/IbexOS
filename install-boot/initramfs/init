@@ -1,0 +1,38 @@
+#!/bin/sh
+/bin/busybox --install -s /bin
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs dev /dev
+
+echo "Rust-Max OS: locating root partition (LABEL=rustmax-root)..."
+
+ROOT_DEV=""
+for i in 1 2 3 4 5 6 7 8 9 10; do
+    for dev in /dev/vda* /dev/sda* /dev/nvme0n1p*; do
+        [ -b "$dev" ] || continue
+        LABEL=$(blkid "$dev" 2>/dev/null | sed -n 's/.*LABEL="\([^"]*\)".*/\1/p')
+        if [ "$LABEL" = "rustmax-root" ]; then
+            ROOT_DEV="$dev"
+            break 2
+        fi
+    done
+    sleep 0.5
+done
+
+if [ -z "$ROOT_DEV" ]; then
+    echo "ERROR: Could not find partition labeled 'rustmax-root'!"
+    echo "Available block devices:"
+    ls -l /dev/[sv]d* /dev/nvme* 2>/dev/null
+    echo "Dropping to emergency shell for debugging."
+    exec /bin/sh
+fi
+
+echo "Found root at $ROOT_DEV"
+mkdir -p /mnt/root
+mount -t ext4 "$ROOT_DEV" /mnt/root
+
+umount /dev
+umount /sys
+umount /proc
+
+exec /bin/busybox switch_root /mnt/root /bin/init

@@ -1,0 +1,44 @@
+#!/bin/sh
+/bin/busybox --install -s /bin
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs dev /dev
+
+echo "Waiting for CD-ROM drive..."
+while [ ! -b /dev/sr0 ]; do
+    sleep 0.1
+done
+
+mkdir -p /mnt/cdrom
+mkdir -p /mnt/squashfs
+mkdir -p /mnt/overlay
+
+echo "Mounting the ISO..."
+mount -t iso9660 -o ro /dev/sr0 /mnt/cdrom
+
+echo "Mounting the SquashFS OS (read-only lower layer)..."
+mount -t squashfs -o loop,ro /mnt/cdrom/live/rootfs.squashfs /mnt/squashfs
+
+echo "Setting up writable overlay in RAM..."
+mount -t tmpfs tmpfs /mnt/overlay
+mkdir -p /mnt/overlay/upper
+mkdir -p /mnt/overlay/work
+mkdir -p /mnt/root
+
+echo "Mounting overlay filesystem..."
+mount -t overlay overlay \
+    -o lowerdir=/mnt/squashfs,upperdir=/mnt/overlay/upper,workdir=/mnt/overlay/work \
+    /mnt/root
+
+# Move the squashfs/cdrom/overlay mounts into the new root so switch_root can clean up properly
+mkdir -p /mnt/root/mnt/cdrom /mnt/root/mnt/squashfs /mnt/root/mnt/overlay
+mount --move /mnt/cdrom /mnt/root/mnt/cdrom
+mount --move /mnt/squashfs /mnt/root/mnt/squashfs
+mount --move /mnt/overlay /mnt/root/mnt/overlay
+
+umount /dev
+umount /sys
+umount /proc
+
+echo "Pivoting to Rust-Max OS (writable session)!"
+exec /bin/busybox switch_root /mnt/root /bin/init
