@@ -35,7 +35,7 @@ sudo pacman -S base-devel squashfs-tools xorriso qemu-full
 ```
 
 
-###Mastering the ISO
+## Mastering the ISO
 Run the following commands in the root of the repository to bake the file system, set core permissions, and package the Live CD:
 
 ```bash
@@ -59,7 +59,7 @@ xorriso -as mkisofs -b boot/limine-bios-cd.bin \
 ```
 
 
-###Testing the Build
+## Testing the Build
 You can test the Live ISO and run the interactive installer in QEMU:
 
 ```bash
@@ -80,5 +80,5 @@ qemu-system-x86_64 \
 Pull requests are welcome. For major architectural changes (like package manager proposals), please open an issue first to discuss what you would like to change.
 
 
-###Author
-@androvonx95
+## Author
+androvonx95
