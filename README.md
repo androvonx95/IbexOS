@@ -3,7 +3,7 @@
 > **Almost Rust. GNU-free Linux.**
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/62ae2a84-f241-4d99-8080-5493d3355b82" width="700" height="500" alt="image">
+  <img src="https://github.com/user-attachments/assets/a2c1cefd-ee6a-4828-9cf5-5f10e8dddccd" width="700" height="500" alt="image">
 </p>
 
 IbexOS is a hyper-minimalist, bare-metal Linux distribution engineered entirely from scratch. Built on a pure `musl` libc and BusyBox userland, it strips away `glibc` bloat and legacy dependencies to provide a hyper-efficient, independent operating environment.
