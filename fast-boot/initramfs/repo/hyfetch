@@ -1,9 +1,0 @@
-#!/bin/sh
-echo "======================================"
-echo "       RUST-MAX OS VIBE FETCH         "
-echo "======================================"
-echo " OS: Rust-Max (GNU-Free)"
-echo " Kernel: Linux (Direct RAM-Disk)"
-echo " Shell: Busybox ash"
-echo " Pkg Manager: pkg-manager v1.0"
-echo "======================================"

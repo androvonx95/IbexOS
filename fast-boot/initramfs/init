@@ -40,5 +40,5 @@ umount /dev
 umount /sys
 umount /proc
 
-echo "Pivoting to Rust-Max OS (writable session)!"
+echo "Pivoting to IbexOS (writable session)!"
 exec /bin/busybox switch_root /mnt/root /bin/init

@@ -4,14 +4,14 @@ mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 mount -t devtmpfs dev /dev
 
-echo "Rust-Max OS: locating root partition (LABEL=rustmax-root)..."
+echo "IbexOS: locating root partition (LABEL=ibexos-root)..."
 
 ROOT_DEV=""
 for i in 1 2 3 4 5 6 7 8 9 10; do
     for dev in /dev/vda* /dev/sda* /dev/nvme0n1p*; do
         [ -b "$dev" ] || continue
         LABEL=$(blkid "$dev" 2>/dev/null | sed -n 's/.*LABEL="\([^"]*\)".*/\1/p')
-        if [ "$LABEL" = "rustmax-root" ]; then
+        if [ "$LABEL" = "ibexos-root" ]; then
             ROOT_DEV="$dev"
             break 2
         fi
@@ -20,7 +20,7 @@ for i in 1 2 3 4 5 6 7 8 9 10; do
 done
 
 if [ -z "$ROOT_DEV" ]; then
-    echo "ERROR: Could not find partition labeled 'rustmax-root'!"
+    echo "ERROR: Could not find partition labeled 'ibexos-root'!"
     echo "Available block devices:"
     ls -l /dev/[sv]d* /dev/nvme* 2>/dev/null
     echo "Dropping to emergency shell for debugging."

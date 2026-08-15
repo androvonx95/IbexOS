@@ -1,0 +1,7 @@
+#!/bin/sh
+export PF_INFO="ascii title os kernel uptime pkgs memory"
+export PF_OS="Linux" # Uses the generic Linux Penguin ASCII art
+export PF_ASCII="Linux" 
+
+# Run pfetch with these variables
+/repo/pfetch
