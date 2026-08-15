@@ -24,7 +24,8 @@ if [ -z "$ROOT_DEV" ]; then
     echo "Available block devices:"
     ls -l /dev/[sv]d* /dev/nvme* 2>/dev/null
     echo "Dropping to emergency shell for debugging."
-    exec /bin/sh
+    /repo/ibex-fetch
+exec /bin/sh
 fi
 
 echo "Found root at $ROOT_DEV"
